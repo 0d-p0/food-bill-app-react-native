@@ -175,7 +175,7 @@ const HomeScreen = ({navigation}) => {
           {!isEmpty(categoryWiseFoodList) && (
             <FlashList
               estimatedItemSize={50}
-              data={categoryWiseFoodList[selectedCategory].slice(
+              data={categoryWiseFoodList?.[selectedCategory]?.slice(
                 0,
                 intialListLen,
               )}

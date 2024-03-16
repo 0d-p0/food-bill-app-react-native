@@ -7,6 +7,7 @@ const DeleteAlert = ({
   onCancel,
   onDelete,
   successText = 'Delete',
+  message = 'This action cannot be undone.',
 }) => {
   if (!isVisible) return null;
 
@@ -14,7 +15,7 @@ const DeleteAlert = ({
     <View style={styles.container}>
       <View style={styles.modal}>
         <Text style={styles.title}>Are you sure?</Text>
-        <Text style={styles.message}>This action cannot be undone.</Text>
+        <Text style={styles.message}>{message}</Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={onCancel}

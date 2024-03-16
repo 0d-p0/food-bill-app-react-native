@@ -15,9 +15,10 @@ import OrderFoodComp from '../Components/OrderFoodComp';
 import ButtonComp from '../Components/ButtonComp';
 import foodReducers, {initialState} from '../reducers/foodReducers';
 import {AppStore} from '../App Context/AppContext';
-import {clearOrderList} from '../actions/foodActions';
+import {clearOrderList, handleDiscount} from '../actions/foodActions';
 import {handleCreateBill} from '../api/api clints/handleBill';
 import {Toast} from 'react-native-toast-notifications';
+import InputComp from '../Components/InputComp';
 const iconSize = 30;
 const OrderdetailsScreen = ({navigation, route}) => {
   // const {total, orderList, test, setTest} = route.params;
@@ -67,41 +68,89 @@ const OrderdetailsScreen = ({navigation, route}) => {
       navigation.goBack();
     }
   }, [orderList]);
+  useEffect(() => {
+    foodDispatch(handleDiscount(0));
+  }, []);
+
+  // function calculateDiscount(totalDiscountPercentage) {
+  //   var items = orderList.slice(); // Make a copy of the original items
+  //   // LOG  {"_id": "65f5290beefd779738f98d37", "category": "900", "cgst": 2, "name": "cat", "price": 12, "quantity": 6, "sgst": 2, "unit": "add new"}
+  //   var totalPrice = items.reduce(
+  //     (acc, item) => acc + item.price * item.quantity,
+  //     0,
+  //   );
+
+  //   var discountedItems = [];
+  //   items.forEach(function (item) {
+  //     var discountPercentage = (
+  //       ((item.price * item.quantity) / totalPrice) *
+  //       totalDiscountPercentage
+  //     ).toFixed(2);
+  //     var itemDiscount =
+  //       item.price * item.quantity * (discountPercentage / 100);
+
+  //     console.log('Discount Price = ' + discountPercentage);
+
+  //     var discountedPrice = item.price * item.quantity - itemDiscount;
+
+  //     // Create a new FoodListResponse object with the discounted price
+  //     var foodItem = {
+  //       id: item._id,
+  //       originalPrice: item.price,
+  //       price: parseFloat((discountedPrice / item.quantity).toFixed(2)),
+  //       name: item.name,
+  //       cgst: item.cgst,
+  //       sgst: item.sgst,
+  //       category: item.category,
+  //       unit: item.unit,
+  //       quantity: item.quantity,
+  //       discountPercentage: parseFloat(discountPercentage),
+  //     };
+
+  //     // Create a new OrderItem with the discounted price and add it to the list
+  //     var discountedItem = {foodItem: foodItem};
+  //     discountedItems.push(discountedItem);
+  //   });
+
+  //   return discountedItems;
+  // }
 
   return (
     <View className="bg-slate-100 flex-1 ">
-      <View className="flex-[3] bg-indigo-500 rounded-b-3xl ">
-        {/* Back icon */}
-        <TouchableOpacity
-          className="flex-row px-2"
-          onPress={() => {
-            navigation.goBack();
-          }}>
-          <Icons.backIcon color={colors.white} size={25} />
-          <Text className="text-base text-white font-normal px-1">Back</Text>
-        </TouchableOpacity>
-        {/* Price */}
-        <View className="items-center justify-center h-2/5">
-          <Text className="text-white text-3xl font-medium tracking-widest">
-            ₹{total?.totalPrice.toFixed(2)}
-          </Text>
-          <Text className="text-white text-2xl font-medium tracking-widest">
-            Total
-          </Text>
-        </View>
-        {/* right icon */}
-        <View className="h-36 w-36 bg-white items-center justify-center rounded-full self-center shadow-md shadow-black mt-2">
-          <View className="h-28 w-28 bg-green-500 items-center justify-center rounded-full">
-            <Icons.doneIcon size={80} color={'white'} />
+      <View className="flex-[10] ">
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View className="h-[35%] bg-indigo-500 rounded-b-3xl ">
+            {/* Back icon */}
+            <TouchableOpacity
+              className="flex-row px-2"
+              onPress={() => {
+                navigation.goBack();
+              }}>
+              <Icons.backIcon color={colors.white} size={25} />
+              <Text className="text-base text-white font-normal px-1">
+                Back
+              </Text>
+            </TouchableOpacity>
+            {/* Price */}
+            <View className="items-center justify-center h-2/5">
+              <Text className="text-white text-3xl font-medium tracking-widest">
+                ₹{total?.totalPrice.toFixed(2)}
+              </Text>
+              <Text className="text-white text-2xl font-medium tracking-widest">
+                Total
+              </Text>
+            </View>
+            {/* right icon */}
+            <View className="h-36 w-36 bg-white items-center justify-center rounded-full self-center shadow-md shadow-black mt-2">
+              <View className="h-28 w-28 bg-green-500 items-center justify-center rounded-full">
+                <Icons.doneIcon size={80} color={'white'} />
+              </View>
+            </View>
           </View>
-        </View>
-      </View>
-      <SpcaerComp height={60} />
-      <View className="flex-[7] px-6">
-        {/* Top Part */}
-        <View className="flex-[10] ">
-          {/* title  */}
-          <ScrollView showsVerticalScrollIndicator={false}>
+          <SpcaerComp height={60} />
+          {/* order lists */}
+          <View className="flex-[12] px-6">
+            {/* title  */}
             {/* title */}
             <View className="flex-row justify-between">
               <Text className="text-black text-xl font-semibold">
@@ -142,9 +191,22 @@ const OrderdetailsScreen = ({navigation, route}) => {
               ₹{total.totalPrice.toFixed(2)}
             </Text>
             <SpcaerComp height={20} />
-          </ScrollView>
-        </View>
+          </View>
+        </ScrollView>
+      </View>
+
+      <View className="px-6">
         {/* Bottom Part */}
+        <InputComp
+          placeholder={'Enter Dicount Percent'}
+          onChangeText={value => {
+            if (value < 0) {
+              foodDispatch(handleDiscount(0));
+            }
+            foodDispatch(handleDiscount(value));
+          }}
+          keyboardType={'number-pad'}
+        />
         <View className="pb-3 flex-row justify-between items-center">
           {/* Save Buuton */}
           <ButtonComp
@@ -155,6 +217,9 @@ const OrderdetailsScreen = ({navigation, route}) => {
           />
           {/* Print Button */}
           <ButtonComp
+            onPress={() => {
+              foodDispatch(handleDiscount(10));
+            }}
             backgroundColor={colors.indigo[500]}
             title={'Print'}
             containerStyle={{width: '48%'}}

@@ -1,6 +1,6 @@
 const endpoints = {
   // baseUrl: 'https://restaurant-billing-backend-by-debanjan.vercel.app/',
-  baseUrl: 'http://192.168.29.166:4000/',
+  baseUrl: 'http://192.168.248.62:4000/',
   login: 'auth/login',
   register: 'auth/create',
   changePassword: 'auth/passwrod-change',

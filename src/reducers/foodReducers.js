@@ -2,6 +2,7 @@
 
 import {calculateTotal} from '../utils/calculateTotal';
 import {filteredList} from '../utils/filteredList';
+import {isEmpty} from '../utils/isEmpty';
 
 // Action types
 const SET_CATEGORY_LIST = 'SET_CATEGORY_LIST';
@@ -22,6 +23,7 @@ const initialState = {
   categoryList: [],
   categoryWiseFoodList: [],
   orderList: [],
+  ogOderList: [],
   itemQuantitys: {},
   selectedCategory: null,
   isCategoryTypeOne: true,
@@ -53,6 +55,7 @@ const foodReducers = (state = initialState, action) => {
         ...state,
         categoryWiseFoodList: groupedFoods,
         selectedCategory: selectedCategory,
+        itemQuantitys: {},
       };
     case SET_SELECTED_CATEGORY:
       return {...state, selectedCategory: action.payload};
@@ -90,7 +93,12 @@ const foodReducers = (state = initialState, action) => {
         increaseOrder = [...state.orderList, item];
       }
 
-      return {...state, total: increaseTotal, orderList: increaseOrder};
+      return {
+        ...state,
+        total: increaseTotal,
+        orderList: increaseOrder,
+        ogOderList: increaseOrder,
+      };
 
     case DIGRESS_QUANTITY:
       item = action.payload;
@@ -103,6 +111,7 @@ const foodReducers = (state = initialState, action) => {
           return {
             ...state,
             orderList: digressOrderList,
+            ogOderList: digressOrderList,
           };
         }
         state.itemQuantitys[item._id.toString()]--;
@@ -111,9 +120,16 @@ const foodReducers = (state = initialState, action) => {
             oitem => oitem._id === item._id,
           );
           const digressOrderList = state.orderList.slice(1, index); // Creates a new array from index 1 to index 3
+          const digressTotal = {
+            totalPrice: state.total.totalPrice - item.price,
+            totalQuantity: (state.total.totalQuantity =
+              state.total.totalQuantity - 1),
+          };
           return {
             ...state,
             orderList: digressOrderList,
+            total: digressTotal,
+            ogOderList: digressOrderList,
           };
         }
       } else {
@@ -143,6 +159,7 @@ const foodReducers = (state = initialState, action) => {
       return {
         ...state,
         orderList: [],
+        ogOderList: [],
         total: total,
         itemQuantitys: {},
       };
@@ -154,12 +171,34 @@ const foodReducers = (state = initialState, action) => {
         categoryList: [],
         categoryWiseFoodList: [],
         orderList: [],
+        ogOderList: [],
         selectedCategory: null,
         isCategoryTypeOne: true,
         searchValues: '',
         total: {totalPrice: 0, totalQuantity: 0},
       };
 
+    case 'DISCOUNT':
+      return {
+        ...state,
+        orderList: calculateDiscount(state.ogOderList, action.payload),
+      };
+    case 'UPDATE_CATEGORY_NAMES_ON_FOOD_LIST':
+      const {newcategory, prevCategory} = action.payload;
+      console.log(newcategory, prevCategory);
+      const updatedCategoryName = changeCategoryNames(
+        state.categoryWiseFoodList,
+        newcategory,
+        prevCategory,
+      );
+      if (state.selectedCategory == prevCategory) {
+        state.selectedCategory = newcategory;
+      }
+      return {
+        ...state,
+        categoryWiseFoodList: updatedCategoryName,
+        // selectedCategory: newcategory,
+      };
     default: {
       console.log('default');
       return state;
@@ -222,6 +261,70 @@ const updatedQuantityWithSearchedValues = (state, itemId, increment) => {
     initialFoodList: updatedList,
   };
 };
+
+function calculateDiscount(orderList, totalDiscountPercentage) {
+  var items = orderList; // Make a copy of the original items
+  // LOG  {"_id": "65f5290beefd779738f98d37", "category": "900", "cgst": 2, "name": "cat", "price": 12, "quantity": 6, "sgst": 2, "unit": "add new"}
+  var totalPrice = items.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0,
+  );
+
+  var discountedItems = [];
+  items.forEach(function (item) {
+    var discountPercentage = (
+      ((item.price * item.quantity) / totalPrice) *
+      totalDiscountPercentage
+    ).toFixed(2);
+    var itemDiscount = item.price * item.quantity * (discountPercentage / 100);
+
+    console.log('Discount Price = ' + discountPercentage);
+
+    var discountedPrice = item.price * item.quantity - itemDiscount;
+
+    // Create a new FoodListResponse object with the discounted price
+    var foodItem = {
+      _id: item._id,
+      originalPrice: item.price,
+      price: parseFloat((discountedPrice / item.quantity).toFixed(2)),
+      name: item.name,
+      cgst: item.cgst,
+      sgst: item.sgst,
+      category: item.category,
+      unit: item.unit,
+      quantity: item.quantity,
+      discountPercentage: parseFloat(discountPercentage),
+    };
+
+    // Create a new OrderItem with the discounted price and add it to the list
+
+    discountedItems.push(foodItem);
+  });
+
+  return discountedItems;
+}
+
+function changeCategoryNames(obj, newCategory, prevCategory) {
+  // Get the "Fresh change" array
+  let freshChangeArray = obj[prevCategory];
+
+  if (!freshChangeArray) {
+    return obj;
+  }
+  // Remove the "Fresh change" key
+  delete obj[prevCategory];
+
+  // Add a new key with the name "fresh" and assign the array to it
+  obj[newCategory] = freshChangeArray;
+
+  // Iterate over each category object in the "fresh" array
+  for (let categoryObj of freshChangeArray) {
+    // change the category key and names
+    categoryObj.category = newCategory;
+  }
+
+  return obj;
+}
 
 export default foodReducers;
 

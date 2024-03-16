@@ -1,25 +1,62 @@
-const dummyfood = [
-  {
-    id: 1,
-    name: 'food',
-    price: 10,
-  },
-  {
-    id: 2,
-    name: 'food2',
-    price: 120,
-  },
-  {
-    id: 3,
-    name: 'food3',
-    price: 90,
-  },
-];
+function changeKeyNames(obj, category, prevCategory) {
+  // Get the "Fresh change" array
+  let freshChangeArray = obj[prevCategory];
 
-const orderList={}
-if(id==1){
-  
+  // Remove the "Fresh change" key
+  delete obj[prevCategory];
+
+  // Add a new key with the name "fresh" and assign the array to it
+  obj[category] = freshChangeArray;
+
+  // Iterate over each category object in the "fresh" array
+  for (let categoryObj of freshChangeArray) {
+    // chnage the category name
+    categoryObj.category = category;
+  }
+
+  return obj;
 }
+
+// Example usage:
+let originalObject = {
+  'Fresh change': [
+    {
+      _id: '65f2deb8fc6c6663c18f5607',
+      category: 'Fresh change',
+      cgst: 5,
+      name: 'Vegitable soup',
+      price: 140,
+      quantity: 0,
+      sgst: 5,
+      unit: 'Plate',
+    },
+    {
+      _id: '65f3f44cc9027692c29b7cf0',
+      category: 'Fresh change',
+      cgst: 10,
+      name: 'Pizza',
+      price: 150,
+      quantity: 0,
+      sgst: 10,
+      unit: 'Plate',
+    },
+  ],
+  'dont change': [
+    {
+      _id: '65f2deb8fc6c6663c18f5607',
+      category: 'dont change',
+      cgst: 5,
+      name: 'Vegitable soup',
+      price: 140,
+      quantity: 0,
+      sgst: 5,
+      unit: 'Plate',
+    },
+  ],
+};
+
+let modifiedObject = changeKeyNames(originalObject, 'cat');
+console.log(modifiedObject);
 
 // const dummydata = {
 //   123: 1,

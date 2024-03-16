@@ -34,14 +34,24 @@ import {
   addNewCategory,
   updateCategoryList,
 } from '../../actions/listActions';
-import {setSelectedCategory} from '../../actions/foodActions';
+import {
+  setSelectedCategory,
+  updateCategoryOnFoodLists,
+} from '../../actions/foodActions';
 import {isEmpty} from '../../utils/isEmpty';
 import {removeItemValue} from '../../utils/AsyncStorage/asyncOperation';
 import DeleteAlert from '../../Components/DeleteAlertComp';
 
 const CategoryScreen = ({route, navigation}) => {
   const toast = useToast();
-  const {token, setLoading, setIsLogin, sessionOutReq} = useContext(AppStore);
+  const {
+    token,
+    setLoading,
+    setIsLogin,
+    sessionOutReq,
+    foodState,
+    foodDispatch,
+  } = useContext(AppStore);
   const {state, dispatch} = useContext(ListStore);
   const {categoryList} = state;
 
@@ -49,9 +59,11 @@ const CategoryScreen = ({route, navigation}) => {
     foodInputReducers,
     initialState,
   );
-
   const {category, selectedCategory, isEditing, isDeleModalShowing} =
     inputState;
+
+  const [prevCategory, setPrevCategory] = useState('');
+
   // handle change Editing Mode
   useEffect(() => {
     if (!isEditing) {
@@ -97,6 +109,8 @@ const CategoryScreen = ({route, navigation}) => {
       const response = await handleDeleteCategory(token, {categoryId});
 
       if (!response.success) {
+        inputDispatch(chnageDeleteModalShow());
+
         setLoading(false);
         if (response.status == 401) {
           setLoading(false);
@@ -138,13 +152,15 @@ const CategoryScreen = ({route, navigation}) => {
 
     if (!response.success) {
       setLoading(false);
-      inputDispatch(chnageDeleteModalShow());
+      inputDispatch(setCategory(''));
+      inputDispatch(changeIsEditing(false));
       if (response.status == 401) {
         return sessionOutReq();
       }
       return toast.show(response.message, {type: 'warning'});
     }
 
+    foodDispatch(updateCategoryOnFoodLists(category, prevCategory));
     dispatch(updateCategoryList(response.message.category, selectedCategory));
     toast.show('category edited successfully', {type: 'success'});
     inputDispatch(setCategory(''));
@@ -168,7 +184,9 @@ const CategoryScreen = ({route, navigation}) => {
         {isEditing && (
           <TouchableOpacity
             className="absolute top-3 right-3"
-            onPress={() => inputDispatch(changeIsEditing(false))}>
+            onPress={() => {
+              inputDispatch(changeIsEditing(false));
+            }}>
             <Text className="text-red-500 text font-medium">Close Editing</Text>
           </TouchableOpacity>
         )}
@@ -213,6 +231,7 @@ const CategoryScreen = ({route, navigation}) => {
               inputDispatch(chnageDeleteModalShow());
             }}
             onEdit={() => {
+              setPrevCategory(props.name);
               inputDispatch(setCategory(props.name));
               inputDispatch(setSelectedCategory(props._id));
               inputDispatch(changeIsEditing(true));
@@ -222,6 +241,11 @@ const CategoryScreen = ({route, navigation}) => {
 
       <DeleteAlert
         isVisible={isDeleModalShowing}
+        message={
+          foodState.orderList?.length > 0
+            ? 'This Action will clear your order List'
+            : 'This action cannot be undone.'
+        }
         onCancel={() => {
           inputDispatch(chnageDeleteModalShow());
         }}

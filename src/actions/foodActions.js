@@ -38,6 +38,16 @@ const clearOrderList = () => {
   return {type: 'CLEAR_ORDER_LIST'};
 };
 
+const handleDiscount = percent => {
+  return {type: 'DISCOUNT', payload: percent};
+};
+
+const updateCategoryOnFoodLists = (newcategory, prevCategory) => {
+  return {
+    type: 'UPDATE_CATEGORY_NAMES_ON_FOOD_LIST',
+    payload: {newcategory, prevCategory},
+  };
+};
 const clearAll = () => {
   return {type: 'CLEAR_ALL'};
 };
@@ -53,4 +63,6 @@ export {
   changeCategory,
   clearOrderList,
   clearAll,
+  handleDiscount,
+  updateCategoryOnFoodLists,
 };

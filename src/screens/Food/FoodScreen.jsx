@@ -58,7 +58,7 @@ import DeleteAlert from '../../Components/DeleteAlertComp';
 // const data = [{label: 'Item 1', value: '1'}];
 
 const FoodScreen = ({navigation}) => {
-  const {token, setLoading, sessionOutReq} = useContext(AppStore);
+  const {token, setLoading, sessionOutReq, foodState} = useContext(AppStore);
   const {state, isCategoryLoading, isUnitLoading, dispatch} =
     useContext(ListStore);
   const {foodList, categoryList, unitList} = state;
@@ -198,7 +198,7 @@ const FoodScreen = ({navigation}) => {
 
       if (!response.success) {
         setLoading(false);
-      inputDispatch(chnageDeleteModalShow());
+        inputDispatch(chnageDeleteModalShow());
 
         if (response.status == 401) {
           return sessionOutReq();
@@ -437,6 +437,11 @@ const FoodScreen = ({navigation}) => {
       {/* Delete DialLog */}
       <DeleteAlert
         isVisible={isDeleModalShowing}
+        message={
+          foodState.orderList?.length > 0
+            ? 'This Action will clear your order List'
+            : 'This action cannot be undone.'
+        }
         onCancel={() => {
           inputDispatch(chnageDeleteModalShow());
         }}
