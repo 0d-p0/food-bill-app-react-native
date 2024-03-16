@@ -198,6 +198,8 @@ const FoodScreen = ({navigation}) => {
 
       if (!response.success) {
         setLoading(false);
+      inputDispatch(chnageDeleteModalShow());
+
         if (response.status == 401) {
           return sessionOutReq();
         }
