@@ -147,7 +147,7 @@ const OrderdetailsScreen = ({navigation, route}) => {
               </View>
             </View>
           </View>
-          <SpcaerComp height={60} />
+          <SpcaerComp height={80} />
           {/* order lists */}
           <View className="flex-[12] px-6">
             {/* title  */}

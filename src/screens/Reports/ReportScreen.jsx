@@ -21,6 +21,7 @@ import {ListStore} from '../../App Context/ListsContext';
 import {setReportList} from '../../actions/listActions';
 import ButtonComp from '../../Components/ButtonComp';
 import {isEmpty} from '../../utils/isEmpty';
+import {color} from '../../res/colors';
 
 const ReportScreen = ({navigation}) => {
   const {token, setLoading, sessionOutReq} = useContext(AppStore);
@@ -81,7 +82,9 @@ const ReportScreen = ({navigation}) => {
   return (
     <View className="bg-indigo-500 flex-1">
       <Text className="text-white text-xl p-4 text-center">Report</Text>
-      <View className="bg-white flex-1 rounded-t-3xl p-5">
+      <View
+        className="bg-white flex-1 rounded-t-3xl p-5"
+        style={{backgroundColor: color.background}}>
         {/* Date Container */}
         <View className="flex-row justify-between px-8 ">
           <Text className="text-gray-700 text-base font-normal">From Date</Text>

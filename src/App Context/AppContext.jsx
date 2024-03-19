@@ -74,6 +74,7 @@ const AppContext = ({children}) => {
         token,
         shopDetails,
         setIsLogin,
+        loading,
         setLoading,
         setShopDetails,
         setToken,

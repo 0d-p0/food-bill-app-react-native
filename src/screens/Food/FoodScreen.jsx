@@ -54,6 +54,7 @@ import {
 import {FlashList} from '@shopify/flash-list';
 import VisibleComp from '../../Components/VisibleComp';
 import DeleteAlert from '../../Components/DeleteAlertComp';
+import {color} from '../../res/colors';
 
 // const data = [{label: 'Item 1', value: '1'}];
 
@@ -284,7 +285,8 @@ const FoodScreen = ({navigation}) => {
   return (
     <ScrollView
       keyboardShouldPersistTaps="handled"
-      className="bg-slate-100 flex-1 p-2 ">
+      className="bg-slate-100 flex-1 p-2 "
+      style={{backgroundColor: color.background}}>
       {/* Food Name */}
       <View>
         <InputComp

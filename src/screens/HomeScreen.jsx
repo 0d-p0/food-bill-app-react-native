@@ -27,9 +27,10 @@ import {
 import {Toast} from 'react-native-toast-notifications';
 import {isEmpty} from '../utils/isEmpty';
 import {FlashList} from '@shopify/flash-list';
+import {color} from '../res/colors';
 
 const HomeScreen = ({navigation}) => {
-  const {shopDetails, foodState, foodDispatch} = useContext(AppStore);
+  const {shopDetails, foodState, foodDispatch, loading} = useContext(AppStore);
   const {state} = useContext(ListStore);
   const {foodList} = state;
   const {
@@ -71,7 +72,7 @@ const HomeScreen = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView className="h-full bg-slate-200 ">
+    <SafeAreaView className="h-full  " style={{backgroundColor: color.white}}>
       {/* Header */}
       {isCategoryTypeOne && (
         <View className="h-1/6 bg-indigo-500 rounded-b-3xl items-center justify-center ">
@@ -165,7 +166,7 @@ const HomeScreen = ({navigation}) => {
         }`}>
         {/* Food Container */}
         <View className="flex-[10] px-3 py-2">
-          {isEmpty(categoryWiseFoodList) && (
+          {isEmpty(categoryWiseFoodList) && !loading && (
             <Image
               source={require('../res/images/emptyState.gif')}
               style={{height: '95%', width: '100%'}}
