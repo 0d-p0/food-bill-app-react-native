@@ -201,7 +201,7 @@ const LoginScreen = ({navigation}) => {
 
   const {inputRefs, focusNextInput} = useInputRefs(3); // Generate 10 input refs
   return (
-    <View style={{backgroundColor: color.primary}}>
+    <View style={{backgroundColor: color.primary, flex: 1}}>
       {/* Title */}
       <View className="h-1/3">
         <Text className="p-5 font-bold text-xl text-white">WellC😀me</Text>
