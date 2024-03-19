@@ -3,6 +3,7 @@ import React from 'react';
 import {Icons} from '../res/icons/icons';
 import colors from 'tailwindcss/colors';
 import {digressQuantity, increaseQuantity} from '../actions/foodActions';
+import {color} from '../res/colors';
 
 const SingleFoodComp = ({item, dispatch, itemQuantitys}) => {
   return (
@@ -20,33 +21,27 @@ const SingleFoodComp = ({item, dispatch, itemQuantitys}) => {
 
       <View className="flex-1 items-center flex-row justify-between px-4">
         <TouchableOpacity
-          style={({pressed}) => [
-            {
-              backgroundColor: pressed ? colors.blue[200] : 'white',
-              borderRadius: 20,
-            },
-          ]}
+          style={{
+            elevation: 20,
+          }}
           onPress={() => {
             Vibration.vibrate(50);
             dispatch(digressQuantity(item));
           }}>
-          <Icons.removeIcon color={colors.indigo[500]} size={45} />
+          <Icons.removeIcon color={color.primary} size={45} />
         </TouchableOpacity>
         <Text className="text-black text-xl font-medium">
           {itemQuantitys[item._id] || 0}
         </Text>
         <TouchableOpacity
-          style={({pressed}) => [
-            {
-              backgroundColor: pressed ? colors.blue[200] : 'white',
-              borderRadius: 20,
-            },
-          ]}
+          style={{
+            elevation: 20,
+          }}
           onPress={() => {
             Vibration.vibrate(50);
             dispatch(increaseQuantity(item));
           }}>
-          <Icons.addIcon color={colors.indigo[500]} size={45} />
+          <Icons.addIcon color={color.primary} size={45} />
         </TouchableOpacity>
       </View>
     </View>

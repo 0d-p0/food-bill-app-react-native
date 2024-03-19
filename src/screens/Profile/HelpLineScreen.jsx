@@ -1,9 +1,10 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {color} from '../../res/colors';
 
 const HelpLineScreen = () => {
   return (
-    <View>
+    <View style={{backgroundColor: color.background, flex: 1}}>
       <Text>HelpLineScreen</Text>
     </View>
   );

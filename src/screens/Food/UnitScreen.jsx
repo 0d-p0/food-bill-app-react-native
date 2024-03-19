@@ -30,6 +30,7 @@ import {
 import {AppStore} from '../../App Context/AppContext';
 import {isEmpty} from '../../utils/isEmpty';
 import DeleteAlert from '../../Components/DeleteAlertComp';
+import {color} from '../../res/colors';
 
 const UnitScreen = ({navigation}) => {
   const toast = useToast();
@@ -157,7 +158,8 @@ const UnitScreen = ({navigation}) => {
   return (
     <ScrollView
       keyboardShouldPersistTaps="handled"
-      className="bg-slate-100 flex-1 p-2">
+      className="bg-slate-100 flex-1 p-2"
+      style={{backgroundColor: color.background}}>
       {/* title */}
       <InputComp
         placeholder={'Enter Unit Name'}
@@ -168,7 +170,7 @@ const UnitScreen = ({navigation}) => {
       />
       <ButtonComp
         title={'SAVE'}
-        backgroundColor={colors.indigo[500]}
+        backgroundColor={color.primary}
         textClassName={'py-1'}
         containerStyle={{marginTop: 10}}
         onPress={() => {

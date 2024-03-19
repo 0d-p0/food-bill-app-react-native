@@ -75,7 +75,8 @@ const HomeScreen = ({navigation}) => {
     <SafeAreaView className="h-full  " style={{backgroundColor: color.white}}>
       {/* Header */}
       {isCategoryTypeOne && (
-        <View className="h-1/6 bg-indigo-500 rounded-b-3xl items-center justify-center ">
+        <View
+          className={`h-1/6 bg-[${color.primary}] rounded-b-3xl items-center justify-center`}>
           {/* Shop Name */}
           <Text className="text-3xl font-semibold mb-10 text-white uppercase text-center">
             {shopDetails?.name}
@@ -138,9 +139,7 @@ const HomeScreen = ({navigation}) => {
                   title={props}
                   key={index}
                   backgroundColor={
-                    props == selectedCategory
-                      ? colors.indigo[500]
-                      : colors.white
+                    props == selectedCategory ? color.primary : colors.white
                   }
                   textClassName={`text-base capitalize font-normal   ${
                     props == selectedCategory ? 'text-white' : 'text-black'
@@ -151,7 +150,7 @@ const HomeScreen = ({navigation}) => {
                     borderRadius: 10,
                     paddingHorizontal: 10,
                     elevation: 0,
-                    borderColor: colors.indigo[500],
+                    borderColor: color.primary,
                     borderWidth: 2,
                   }}
                 />
@@ -209,7 +208,8 @@ const HomeScreen = ({navigation}) => {
 
         {/* item info [quantity, Price] and Preview Button */}
         {!isEmpty(categoryWiseFoodList) && (
-          <View className="flex-[2] bg-slate-50 divide-x-2  flex-row justify-between items-center">
+          <View
+            className={`flex-[2] bg-slate-50 divide-x-2  flex-row justify-between items-center`}>
             {/* Item Quantity and Price */}
             <View className="max-w-6/12 px-5">
               <Text className="text-black text-base font-medium ">
@@ -230,7 +230,7 @@ const HomeScreen = ({navigation}) => {
             {/* Preview Button */}
             <View className="flex-1 px-5">
               <ButtonComp
-                backgroundColor={colors.indigo[500]}
+                backgroundColor={color.primary}
                 title={'Preview'}
                 containerStyle={{marginTop: 0, letterSpacing: 2}}
                 textClassName={'tracking-widest '}

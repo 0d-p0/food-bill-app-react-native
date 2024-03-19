@@ -9,6 +9,7 @@ import foodInputReducers, {
   initialState,
 } from '../../reducers/foodInputReducers';
 import {changeIsEditing} from '../../actions/foodInputAction';
+import {color} from '../../res/colors';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -19,21 +20,21 @@ const ItemsManage = ({navigation}) => {
   );
 
   return (
-    <View className="bg-indigo-500 flex-1">
+    <View style={{backgroundColor: color.primary, flex: 1}}>
       <Text className="text-white text-xl p-4 text-center">Manage</Text>
 
       <Tab.Navigator
         initialRouteName="Feed"
         screenOptions={({route}) => ({
-          tabBarPressColor: colors.indigo[500],
+          tabBarPressColor: color.primary,
           tabBarActiveTintColor: colors.black,
           tabBarIndicatorStyle: {
             borderBottomWidth: 2,
-            borderColor: colors.blue[400],
+            borderColor: color.primary,
           },
           tabBarLabelStyle: {fontSize: 16, fontWeight: '500'},
           tabBarStyle: {
-            backgroundColor: colors.slate[100],
+            backgroundColor: color.background,
             elevation: 0,
             borderTopRightRadius: 20,
             borderTopLeftRadius: 20,

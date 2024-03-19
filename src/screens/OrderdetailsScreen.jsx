@@ -19,6 +19,7 @@ import {clearOrderList, handleDiscount} from '../actions/foodActions';
 import {handleCreateBill} from '../api/api clints/handleBill';
 import {Toast} from 'react-native-toast-notifications';
 import InputComp from '../Components/InputComp';
+import {color} from '../res/colors';
 const iconSize = 30;
 const OrderdetailsScreen = ({navigation, route}) => {
   // const {total, orderList, test, setTest} = route.params;
@@ -72,54 +73,13 @@ const OrderdetailsScreen = ({navigation, route}) => {
     foodDispatch(handleDiscount(0));
   }, []);
 
-  // function calculateDiscount(totalDiscountPercentage) {
-  //   var items = orderList.slice(); // Make a copy of the original items
-  //   // LOG  {"_id": "65f5290beefd779738f98d37", "category": "900", "cgst": 2, "name": "cat", "price": 12, "quantity": 6, "sgst": 2, "unit": "add new"}
-  //   var totalPrice = items.reduce(
-  //     (acc, item) => acc + item.price * item.quantity,
-  //     0,
-  //   );
-
-  //   var discountedItems = [];
-  //   items.forEach(function (item) {
-  //     var discountPercentage = (
-  //       ((item.price * item.quantity) / totalPrice) *
-  //       totalDiscountPercentage
-  //     ).toFixed(2);
-  //     var itemDiscount =
-  //       item.price * item.quantity * (discountPercentage / 100);
-
-  //     console.log('Discount Price = ' + discountPercentage);
-
-  //     var discountedPrice = item.price * item.quantity - itemDiscount;
-
-  //     // Create a new FoodListResponse object with the discounted price
-  //     var foodItem = {
-  //       id: item._id,
-  //       originalPrice: item.price,
-  //       price: parseFloat((discountedPrice / item.quantity).toFixed(2)),
-  //       name: item.name,
-  //       cgst: item.cgst,
-  //       sgst: item.sgst,
-  //       category: item.category,
-  //       unit: item.unit,
-  //       quantity: item.quantity,
-  //       discountPercentage: parseFloat(discountPercentage),
-  //     };
-
-  //     // Create a new OrderItem with the discounted price and add it to the list
-  //     var discountedItem = {foodItem: foodItem};
-  //     discountedItems.push(discountedItem);
-  //   });
-
-  //   return discountedItems;
-  // }
-
   return (
-    <View className="bg-slate-100 flex-1 ">
+    <View style={{backgroundColor: color.background, flex: 1}}>
       <View className="flex-[10] ">
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View className="h-[35%] bg-indigo-500 rounded-b-3xl ">
+          <View
+            className="h-[35%] rounded-b-3xl "
+            style={{backgroundColor: color.primary}}>
             {/* Back icon */}
             <TouchableOpacity
               className="flex-row px-2"
@@ -187,7 +147,8 @@ const OrderdetailsScreen = ({navigation, route}) => {
               <View className="w-5/6  border-0 h-px bg-gray-700 border-dashed	" />
             </View>
 
-            <Text className="text-green-500 text-base font-medium text-right -my-2 tracking-wider">
+            <Text
+              className={`text-green-500 text-base font-medium text-right -my-2 tracking-wider`}>
               ₹{total.totalPrice.toFixed(2)}
             </Text>
             <SpcaerComp height={20} />
@@ -205,12 +166,13 @@ const OrderdetailsScreen = ({navigation, route}) => {
             }
             foodDispatch(handleDiscount(value));
           }}
+          topClass="-mb-3"
           keyboardType={'number-pad'}
         />
         <View className="pb-3 flex-row justify-between items-center">
           {/* Save Buuton */}
           <ButtonComp
-            backgroundColor={colors.green[500]}
+            backgroundColor={color.green}
             title={'Save'}
             containerStyle={{width: '48%'}}
             onPress={performCreateBill}
@@ -220,7 +182,7 @@ const OrderdetailsScreen = ({navigation, route}) => {
             onPress={() => {
               foodDispatch(handleDiscount(10));
             }}
-            backgroundColor={colors.indigo[500]}
+            backgroundColor={color.primary}
             title={'Print'}
             containerStyle={{width: '48%'}}
           />

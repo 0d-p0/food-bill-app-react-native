@@ -10,6 +10,7 @@ import SpcaerComp from '../../Components/SpcaerComp';
 import colors from 'tailwindcss/colors';
 import {Icons} from '../../res/icons/icons';
 import ButtonComp from '../../Components/ButtonComp';
+import {color} from '../../res/colors';
 
 // [
 //   {
@@ -27,7 +28,7 @@ import ButtonComp from '../../Components/ButtonComp';
 const ReportDetailScreen = ({route, navigation}) => {
   const {details} = route.params;
   return (
-    <View className="bg-indigo-500 flex-1">
+    <View style={{backgroundColor: color.primary, flex: 1}}>
       <View className="flex-row items-center">
         {/* Back icon */}
         <TouchableOpacity
@@ -92,7 +93,7 @@ const ReportDetailScreen = ({route, navigation}) => {
           </View>
         </ScrollView>
 
-        <ButtonComp backgroundColor={colors.violet[400]} title={'Print'} />
+        <ButtonComp backgroundColor={color.green} title={'Print'} />
       </View>
     </View>
   );

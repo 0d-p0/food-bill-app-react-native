@@ -285,7 +285,7 @@ const FoodScreen = ({navigation}) => {
   return (
     <ScrollView
       keyboardShouldPersistTaps="handled"
-      className="bg-slate-100 flex-1 p-2 "
+      className=" flex-1 p-2 "
       style={{backgroundColor: color.background}}>
       {/* Food Name */}
       <View>
@@ -375,7 +375,7 @@ const FoodScreen = ({navigation}) => {
       </VisibleComp>
       <ButtonComp
         title={'SAVE'}
-        backgroundColor={colors.indigo[500]}
+        backgroundColor={color.primary}
         textClassName={'py-1'}
         containerStyle={{marginTop: 10}}
         onPress={() => {

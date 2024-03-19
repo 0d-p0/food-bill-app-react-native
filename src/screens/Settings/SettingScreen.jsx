@@ -13,6 +13,7 @@ import {
   handleLogoutOtherRequest,
 } from '../../api/api clints/handleAuth';
 import {storeData} from '../../utils/AsyncStorage/asyncOperation';
+import {color} from '../../res/colors';
 
 const iconColor = colors.black;
 const iconSize = 25;
@@ -114,9 +115,11 @@ const SettingScreen = ({navigation}) => {
     }
   }
   return (
-    <View className="bg-indigo-500 flex-1">
+    <View style={{backgroundColor: color.primary, flex: 1}}>
       <Text className="text-white text-xl p-4 text-center">Setting</Text>
-      <View className="bg-slate-100 flex-1 rounded-t-3xl p-5">
+      <View
+        className="bg-slate-100 flex-1 rounded-t-3xl p-5"
+        style={{backgroundColor: color.background}}>
         <ScrollView>
           {/* password change  */}
           <SettingComp

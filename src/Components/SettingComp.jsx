@@ -8,6 +8,7 @@ import {
 import React from 'react';
 import {getLighterShade} from '../utils/Color/getLighterShade';
 import colors from 'tailwindcss/colors';
+import {color} from '../res/colors';
 
 const SettingComp = ({
   onLongPress,
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     justifyContent: 'space-between',
-    backgroundColor: colors.white,
+    backgroundColor: colors.gray[200],
     marginVertical: 5,
   },
 });

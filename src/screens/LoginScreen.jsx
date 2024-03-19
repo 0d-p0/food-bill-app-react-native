@@ -16,7 +16,7 @@ import AnimatedMirrorImage from '../Components/Animation/AnimatedMirrorImage';
 import authReducer, {initialState} from '../reducers/authReducer';
 
 const iconSize = 25;
-const iconColor = colors.blue[400];
+const iconColor = color.primary;
 
 import {
   toggleRegister,
@@ -36,6 +36,7 @@ import {storeData, storeObjectData} from '../utils/AsyncStorage/asyncOperation';
 import {useToast} from 'react-native-toast-notifications';
 import {isEmpty} from '../utils/isEmpty';
 import useInputRefs from '../hooks/useInputRefs';
+import {color} from '../res/colors';
 
 const LoginScreen = ({navigation}) => {
   const toast = useToast();
@@ -200,14 +201,14 @@ const LoginScreen = ({navigation}) => {
 
   const {inputRefs, focusNextInput} = useInputRefs(3); // Generate 10 input refs
   return (
-    <View className="bg-indigo-500 flex-1">
+    <View className={`bg-[${color.primary}] flex-1`}>
       {/* Title */}
       <View className="h-1/3">
         <Text className="p-5 font-bold text-xl text-white">WellC😀me</Text>
       </View>
 
       {/* Image */}
-      <View className="bg-white h-4/5 rounded-2xl p-5">
+      <View className={`bg-[${color.background}] h-4/5 rounded-2xl p-5`}>
         <View className="absolute -top-40 left-[25%]">
           <AnimatedMirrorImage mirror={isRegister}>
             <Image
@@ -263,7 +264,7 @@ const LoginScreen = ({navigation}) => {
 
         {/* Login / Register Button component */}
         <ButtonComp
-          backgroundColor={colors.blue[600]}
+          backgroundColor={color.primary}
           title={isRegister ? 'Register' : 'Login'}
           onPress={() => {
             if (isRegister) {

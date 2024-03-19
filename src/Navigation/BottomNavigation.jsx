@@ -9,6 +9,7 @@ import ProfileManage from '../screens/Profile/ProfileManage';
 import ListContext from '../App Context/ListsContext';
 import ReportScreen from '../screens/Reports/ReportScreen';
 import SettingScreen from '../screens/Settings/SettingScreen';
+import {color} from '../res/colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +27,7 @@ const BottomNavigation = () => {
 
             ...styles.tabBarStyle,
           },
-          tabBarInactiveTintColor: colors.gray[400],
+          tabBarInactiveTintColor: colors.gray[500],
 
           tabBarActiveTintColor: '#ffff',
         })}
@@ -116,10 +117,10 @@ const styles = StyleSheet.create({
   tabBarStyle: {
     elevation: 0,
     borderTopWidth: 0,
-    backgroundColor: colors.gray[100],
+    backgroundColor: color.background,
   },
   activeButton: {
-    backgroundColor: colors.indigo[400],
+    backgroundColor: color.primary,
     borderRadius: 50,
     padding: 5,
     alignItems: 'center',

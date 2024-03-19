@@ -11,6 +11,7 @@ import {removeItemValue} from '../../utils/AsyncStorage/asyncOperation';
 import {AppStore} from '../../App Context/AppContext';
 import {useToast} from 'react-native-toast-notifications';
 import DeleteAlert from '../../Components/DeleteAlertComp';
+import {color} from '../../res/colors';
 
 const Tab = createMaterialTopTabNavigator();
 const ProfileManage = () => {
@@ -18,13 +19,13 @@ const ProfileManage = () => {
   const [isModalShow, setIsModalShow] = useState(false);
   const toast = useToast();
   return (
-    <View className="bg-indigo-500 flex-1">
+    <View style={{backgroundColor: color.primary, flex: 1}}>
       <View className="flex-row justify-center items-center">
         <Text className="text-white text-xl p-4 text-center">Manage</Text>
         <Pressable
           style={({pressed}) => [
             {
-              backgroundColor: pressed ? colors.blue[200] : colors.indigo[500],
+              backgroundColor: pressed ? colors.blue[200] : color.primary,
               borderRadius: 20,
               padding: 2,
               position: 'absolute',
@@ -41,16 +42,16 @@ const ProfileManage = () => {
       <Tab.Navigator
         initialRouteName="Feed"
         screenOptions={({route}) => ({
-          tabBarPressColor: colors.indigo[500],
+          tabBarPressColor: color.primary,
           tabBarActiveTintColor: colors.black,
 
           tabBarIndicatorStyle: {
             borderBottomWidth: 2,
-            borderColor: colors.blue[400],
+            borderColor: color.primary,
           },
           tabBarLabelStyle: {fontSize: 16, fontWeight: '500'},
           tabBarStyle: {
-            backgroundColor: colors.slate[100],
+            backgroundColor: color.background,
             elevation: 0,
             borderTopRightRadius: 20,
             borderTopLeftRadius: 20,

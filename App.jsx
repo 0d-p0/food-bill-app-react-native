@@ -6,14 +6,12 @@ import MainNavigation from './src/Navigation/MainNavigation';
 import colors from 'tailwindcss/colors';
 import {ToastProvider} from 'react-native-toast-notifications';
 import SplashScreen from './src/screens/SplashScreen';
+import {color} from './src/res/colors';
 
 const App = () => {
   return (
     <>
-      <StatusBar
-        backgroundColor={colors.indigo[500]}
-        barStyle="light-content"
-      />
+      <StatusBar backgroundColor={color.primary} barStyle="light-content" />
       <ToastProvider placement="top">
         <AppContext>
           <MainNavigation />

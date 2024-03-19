@@ -22,6 +22,7 @@ import {
   setPhoneNumber,
   setShopName,
 } from '../../actions/shopDetailsActions';
+import {color} from '../../res/colors';
 
 const ShopDetailsScreen = () => {
   const toast = useToast();
@@ -107,7 +108,7 @@ const ShopDetailsScreen = () => {
   };
 
   return (
-    <ScrollView className="p-5">
+    <ScrollView className="p-5" style={{backgroundColor: color.background}}>
       <InputComp
         title={'Shop Name *'}
         errorText={shopNameError}
@@ -142,7 +143,7 @@ const ShopDetailsScreen = () => {
         onChangeText={value => dispatch(setGSTNumber(value))}
       />
       <ButtonComp
-        backgroundColor={colors.blue[600]}
+        backgroundColor={color.primary}
         title={'SAVE'}
         onPress={handleSubmit}
       />

@@ -80,10 +80,10 @@ const ReportScreen = ({navigation}) => {
   }, [fromDate, toDate]);
 
   return (
-    <View className="bg-indigo-500 flex-1">
+    <View style={{backgroundColor: color.primary, flex: 1}}>
       <Text className="text-white text-xl p-4 text-center">Report</Text>
       <View
-        className="bg-white flex-1 rounded-t-3xl p-5"
+        className=" flex-1 rounded-t-3xl p-5"
         style={{backgroundColor: color.background}}>
         {/* Date Container */}
         <View className="flex-row justify-between px-8 ">
@@ -138,7 +138,7 @@ const ReportScreen = ({navigation}) => {
           <View>
             <ButtonComp
               containerStyle={{marginTop: 0, marginBottom: -10}}
-              backgroundColor={colors.green[600]}
+              backgroundColor={color.green}
               title={'Genarte Bill'}
               onPress={perFromGetBill}
             />

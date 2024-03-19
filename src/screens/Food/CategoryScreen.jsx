@@ -41,6 +41,7 @@ import {
 import {isEmpty} from '../../utils/isEmpty';
 import {removeItemValue} from '../../utils/AsyncStorage/asyncOperation';
 import DeleteAlert from '../../Components/DeleteAlertComp';
+import {color} from '../../res/colors';
 
 const CategoryScreen = ({route, navigation}) => {
   const toast = useToast();
@@ -171,7 +172,8 @@ const CategoryScreen = ({route, navigation}) => {
   return (
     <ScrollView
       keyboardShouldPersistTaps="handled"
-      className="bg-slate-100 flex-1 p-2">
+      className="bg-slate-100 flex-1 p-2"
+      style={{backgroundColor: color.background}}>
       {/* title */}
       <View>
         <InputComp
@@ -193,7 +195,7 @@ const CategoryScreen = ({route, navigation}) => {
       </View>
       <ButtonComp
         title={'SAVE'}
-        backgroundColor={colors.indigo[500]}
+        backgroundColor={color.primary}
         textClassName={'py-1'}
         containerStyle={{marginTop: 10}}
         onPress={() => {
