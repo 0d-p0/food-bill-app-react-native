@@ -17,6 +17,7 @@ import ShopDetailsValidator from '../utils/validateInputField/validateShopDetail
 import {handleUpdateShopDetails} from '../api/api clints/handleShopDetails';
 import {getData, storeObjectData} from '../utils/AsyncStorage/asyncOperation';
 import {AppStore} from '../App Context/AppContext';
+import {color} from '../res/colors';
 
 const ShopDetailsCreateScreen = () => {
   const toast = useToast();
@@ -95,12 +96,15 @@ const ShopDetailsCreateScreen = () => {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      className="bg-indigo-500 h-full">
+      className=" h-full"
+      style={{backgroundColor: color.primary}}>
       <View className=" h-2/6 ">
         <Text className="p-5 font-bold text-2xl text-white">Shop Details</Text>
       </View>
 
-      <View className="bg-white h-screen rounded-2xl  p-5">
+      <View
+        className=" h-screen rounded-2xl  p-5"
+        style={{backgroundColor: color.background}}>
         <View className="absolute -top-40 left-[25%]">
           <Image
             source={require('../res/images/img_woman_1.png')}
@@ -143,7 +147,7 @@ const ShopDetailsCreateScreen = () => {
           onChangeText={value => dispatch(setGSTNumber(value))}
         />
         <ButtonComp
-          backgroundColor={colors.blue[600]}
+          backgroundColor={color.primary}
           title={'Create'}
           onPress={handleSubmit}
         />

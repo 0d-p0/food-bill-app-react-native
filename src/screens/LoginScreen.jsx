@@ -201,14 +201,16 @@ const LoginScreen = ({navigation}) => {
 
   const {inputRefs, focusNextInput} = useInputRefs(3); // Generate 10 input refs
   return (
-    <View className={`bg-[${color.primary}] flex-1`}>
+    <View style={{backgroundColor: color.primary}}>
       {/* Title */}
       <View className="h-1/3">
         <Text className="p-5 font-bold text-xl text-white">WellC😀me</Text>
       </View>
 
       {/* Image */}
-      <View className={`bg-[${color.background}] h-4/5 rounded-2xl p-5`}>
+      <View
+        className={` h-4/5 rounded-2xl p-5`}
+        style={{backgroundColor: color.background}}>
         <View className="absolute -top-40 left-[25%]">
           <AnimatedMirrorImage mirror={isRegister}>
             <Image
