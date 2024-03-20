@@ -16,13 +16,20 @@ const OrderFoodComp = ({index, item, dispatch, itemQuantitys}) => {
   return (
     <View className="flex-row items-center">
       {/* food details */}
-      <View className="flex-row flex-[7] ">
-        <Text className="text-black text-base font-normal mr-1">
-          {index + 1}. {item.name}
-        </Text>
-        <Text className="text-black text-base font-normal">
-          ({item.quantity} * ₹{item.price})
-        </Text>
+      <View className="flex-[7]">
+        <View className="flex-row flex-[7] ">
+          <Text className="text-black text-base font-normal mr-1">
+            {index + 1}. {item.name}
+          </Text>
+          <Text className="text-black text-base font-normal">
+            ({item.quantity} * ₹{item.price})
+          </Text>
+        </View>
+        {item.discountPercentage > 0 && (
+          <Text className="text-green-600 text-base font-normal ml-2">
+            {item.discountPercentage}% off
+          </Text>
+        )}
       </View>
       {/* button */}
       <View className="flex-[3] items-center flex-row justify-between ">

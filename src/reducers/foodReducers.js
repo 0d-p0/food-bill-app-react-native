@@ -293,7 +293,7 @@ function calculateDiscount(orderList, totalDiscountPercentage) {
     ).toFixed(2);
     var itemDiscount = item.price * item.quantity * (discountPercentage / 100);
 
-    console.log('Discount Price = ' + discountPercentage);
+    // console.log('Discount Price = ' + discountPercentage);
 
     var discountedPrice = item.price * item.quantity - itemDiscount;
 
