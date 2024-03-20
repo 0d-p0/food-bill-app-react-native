@@ -87,8 +87,10 @@ const foodReducers = (state = initialState, action) => {
       };
 
       item['quantity'] = state.itemQuantitys[item._id.toString()];
+
       const index = state.orderList.findIndex(oitem => oitem._id === item._id);
       let increaseOrder = state.orderList;
+
       if (index == -1) {
         increaseOrder = [...state.orderList, item];
       }
@@ -139,13 +141,25 @@ const foodReducers = (state = initialState, action) => {
         };
       }
 
+      item['quantity'] = state.itemQuantitys[item._id.toString()];
+      const findex = state.orderList.findIndex(oitem => oitem._id === item._id);
+      let digressOrderList = state.orderList;
+
+      if (findex == -1) {
+        digressOrderList = [...state.orderList, item];
+      }
       const digressTotal = {
         totalPrice: state.total.totalPrice - item.price,
         totalQuantity: (state.total.totalQuantity =
           state.total.totalQuantity - 1),
       };
 
-      return {...state, total: digressTotal};
+      return {
+        ...state,
+        total: digressTotal,
+        ogOderList: digressOrderList,
+        orderList: digressOrderList,
+      };
 
     case CHANGE_CATEGORY:
       const category = action.payload;
@@ -270,6 +284,7 @@ function calculateDiscount(orderList, totalDiscountPercentage) {
     0,
   );
 
+
   var discountedItems = [];
   items.forEach(function (item) {
     var discountPercentage = (
@@ -300,6 +315,8 @@ function calculateDiscount(orderList, totalDiscountPercentage) {
 
     discountedItems.push(foodItem);
   });
+   
+  
 
   return discountedItems;
 }

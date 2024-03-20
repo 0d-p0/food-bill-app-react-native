@@ -1,62 +1,65 @@
-function changeKeyNames(obj, category, prevCategory) {
-  // Get the "Fresh change" array
-  let freshChangeArray = obj[prevCategory];
 
-  // Remove the "Fresh change" key
-  delete obj[prevCategory];
 
-  // Add a new key with the name "fresh" and assign the array to it
-  obj[category] = freshChangeArray;
 
-  // Iterate over each category object in the "fresh" array
-  for (let categoryObj of freshChangeArray) {
-    // chnage the category name
-    categoryObj.category = category;
-  }
+// function changeKeyNames(obj, category, prevCategory) {
+//   // Get the "Fresh change" array
+//   let freshChangeArray = obj[prevCategory];
 
-  return obj;
-}
+//   // Remove the "Fresh change" key
+//   delete obj[prevCategory];
 
-// Example usage:
-let originalObject = {
-  'Fresh change': [
-    {
-      _id: '65f2deb8fc6c6663c18f5607',
-      category: 'Fresh change',
-      cgst: 5,
-      name: 'Vegitable soup',
-      price: 140,
-      quantity: 0,
-      sgst: 5,
-      unit: 'Plate',
-    },
-    {
-      _id: '65f3f44cc9027692c29b7cf0',
-      category: 'Fresh change',
-      cgst: 10,
-      name: 'Pizza',
-      price: 150,
-      quantity: 0,
-      sgst: 10,
-      unit: 'Plate',
-    },
-  ],
-  'dont change': [
-    {
-      _id: '65f2deb8fc6c6663c18f5607',
-      category: 'dont change',
-      cgst: 5,
-      name: 'Vegitable soup',
-      price: 140,
-      quantity: 0,
-      sgst: 5,
-      unit: 'Plate',
-    },
-  ],
-};
+//   // Add a new key with the name "fresh" and assign the array to it
+//   obj[category] = freshChangeArray;
 
-let modifiedObject = changeKeyNames(originalObject, 'cat');
-console.log(modifiedObject);
+//   // Iterate over each category object in the "fresh" array
+//   for (let categoryObj of freshChangeArray) {
+//     // chnage the category name
+//     categoryObj.category = category;
+//   }
+
+//   return obj;
+// }
+
+// // Example usage:
+// let originalObject = {
+//   'Fresh change': [
+//     {
+//       _id: '65f2deb8fc6c6663c18f5607',
+//       category: 'Fresh change',
+//       cgst: 5,
+//       name: 'Vegitable soup',
+//       price: 140,
+//       quantity: 0,
+//       sgst: 5,
+//       unit: 'Plate',
+//     },
+//     {
+//       _id: '65f3f44cc9027692c29b7cf0',
+//       category: 'Fresh change',
+//       cgst: 10,
+//       name: 'Pizza',
+//       price: 150,
+//       quantity: 0,
+//       sgst: 10,
+//       unit: 'Plate',
+//     },
+//   ],
+//   'dont change': [
+//     {
+//       _id: '65f2deb8fc6c6663c18f5607',
+//       category: 'dont change',
+//       cgst: 5,
+//       name: 'Vegitable soup',
+//       price: 140,
+//       quantity: 0,
+//       sgst: 5,
+//       unit: 'Plate',
+//     },
+//   ],
+// };
+
+// let modifiedObject = changeKeyNames(originalObject, 'cat');
+// console.log(modifiedObject);
 
 // const dummydata = {
 //   123: 1,

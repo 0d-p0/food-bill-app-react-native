@@ -76,7 +76,8 @@ const HomeScreen = ({navigation}) => {
       {/* Header */}
       {isCategoryTypeOne && (
         <View
-          className={`h-1/6 bg-[${color.primary}] rounded-b-3xl items-center justify-center`}>
+          className={`h-1/6  rounded-b-3xl items-center justify-center`}
+          style={{backgroundColor: color.primary}}>
           {/* Shop Name */}
           <Text className="text-3xl font-semibold mb-10 text-white uppercase text-center">
             {shopDetails?.name}
