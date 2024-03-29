@@ -121,6 +121,7 @@ const OrderdetailsScreen = ({navigation, route}) => {
     if (shopDetails?.name) {
       printbill += `[C]<u><font size='tall'>${shopDetails?.name}</font></u>\n`;
     }
+    // printbill += `[C]<u>${shopDetails?.name}</u>\n`;
     (printbill +=
       '[L]-------------------------------\n' +
       '[L]<b>Item</b>[C]<b>Qty</b>[C]<b>Price</b>[C]<b>Total</b>\n'),
@@ -142,7 +143,12 @@ const OrderdetailsScreen = ({navigation, route}) => {
     gstData.forEach(item => {
       printbill += `[L]<b>${item.type}</b>[C]<b>${item.quantity}</b>[C]<b>${item.percent}</b>[C]<b>${item.total}</b>\n`;
     });
-    printbill += '\n\n\n';
+    printbill += '[L]-------------------------------\n';
+    printbill += `[L]Grand Total [R]${total.totalPrice + gstTotal}${''.padEnd(
+      2,
+    )}\n\n`;
+    printbill += `[C]THANK YOU VISIT AGAIN\n`;
+    printbill += '[L]\n' + '[L]\n' + '[L]\n' + '[L]\n';
     return printbill;
   };
 
@@ -315,7 +321,8 @@ const OrderdetailsScreen = ({navigation, route}) => {
           {/* Print Button */}
           <ButtonComp
             onPress={() => {
-              startPrint(generateBill());
+              console.log(generateBill());
+              // startPrint(generateBill());
             }}
             backgroundColor={color.primary}
             title={'Print'}

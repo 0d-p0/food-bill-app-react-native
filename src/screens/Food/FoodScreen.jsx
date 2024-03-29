@@ -245,6 +245,8 @@ const FoodScreen = ({navigation}) => {
       unitId: selectedUnit,
       foodName: foodName,
       foodPrice: foodPrice,
+      cgst: foodCGST,
+      sgst: foodSGST,
     });
 
     if (!response.success) {
@@ -258,6 +260,7 @@ const FoodScreen = ({navigation}) => {
       return;
     }
 
+    console.log('updated food ' + JSON.stringify(response.message.updatedFood));
     const food = response.message.updatedFood;
     // Remove fields
     delete food.__v;
