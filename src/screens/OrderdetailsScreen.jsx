@@ -239,30 +239,36 @@ const OrderdetailsScreen = ({navigation, route}) => {
                   itemQuantitys={itemQuantitys}
                 />
               ))}
-            <View className="mt-2  flex-row justify-between items-center gap-x-2">
-              <View className="w-[30%]  border-0 h-px bg-gray-700 border-dashed	" />
 
-              <Text className="text-black font-medium text-xl">
-                GST Details
-              </Text>
-              <View className="w-[30%] border-0 h-px bg-gray-700 border-dashed	" />
-            </View>
+            {!isEmpty(gstData) && (
+              <View className="mt-2  flex-row justify-between items-center gap-x-2">
+                <View className="w-[30%]  border-0 h-px bg-gray-700 border-dashed	" />
 
-            {/* LOG  [{"gstTotal": "98.4", "percent": "5.00%", "quantity": "16", "type": "CGST"}, {"gstTotal": "98.4", "percent": "5.00%", "quantity": "16", "type": "SGST"}] */}
-            <View className="flex-row justify-between">
-              <Text className="text-black text-base font-normal mr-1 flex-1">
-                Type
-              </Text>
-              <Text className="text-black text-base font-normal mr-1 flex-1 ">
-                Qty
-              </Text>
-              <Text className="text-black text-base font-normal mr-1 flex-1">
-                Percent
-              </Text>
-              <Text className="text-black text-base font-normal mr-1 flex-1 text-right">
-                Total
-              </Text>
-            </View>
+                <Text className="text-black font-medium text-xl">
+                  GST Details
+                </Text>
+                <View className="w-[30%] border-0 h-px bg-gray-700 border-dashed	" />
+              </View>
+            )}
+
+            {/*   [{"gstTotal": "98.4", "percent": "5.00%", "quantity": "16", "type": "CGST"}, {"gstTotal": "98.4", "percent": "5.00%", "quantity": "16", "type": "SGST"}] */}
+            {!isEmpty(gstData) && (
+              <View className="flex-row justify-between">
+                <Text className="text-black text-base font-normal mr-1 flex-1">
+                  Type
+                </Text>
+                <Text className="text-black text-base font-normal mr-1 flex-1 ">
+                  Qty
+                </Text>
+                <Text className="text-black text-base font-normal mr-1 flex-1">
+                  Percent
+                </Text>
+                <Text className="text-black text-base font-normal mr-1 flex-1 text-right">
+                  Total
+                </Text>
+              </View>
+            )}
+
             {!isEmpty(gstData) &&
               gstData.map((props, index) => (
                 <View

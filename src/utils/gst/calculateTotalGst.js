@@ -51,6 +51,9 @@ function calculateGST(items) {
   let gstTotal = 0;
 
   for (const item of items) {
+    if (item.cgst == 0 || item.sgst == 0) {
+      continue;
+    }
     const price = parseFloat((item.price || 0) * item.quantity).toFixed(2);
     const cgst = parseFloat(item.cgst || 0).toFixed(2);
     const sgst = parseFloat(item.sgst || 0).toFixed(2);
@@ -62,13 +65,20 @@ function calculateGST(items) {
     categoryWiseCGST[cgst.toString()] ??= 0;
     categoryWiseSGST[sgst.toString()] ??= 0;
     categoryWiseQuantity[cgst.toString()] ??= 0;
+    categoryWiseQuantity[sgst.toString()] ??= 0;
 
     categoryWiseCGST[cgst.toString()] =
       (categoryWiseCGST[cgst.toString()] || 0) + cgstAmount;
     categoryWiseSGST[sgst.toString()] =
       (categoryWiseSGST[sgst.toString()] || 0) + sgstAmount;
+
     categoryWiseQuantity[cgst.toString()] =
       (categoryWiseQuantity[cgst.toString()] || 0) + quantity;
+    if (cgst.toString() === sgst.toString()) {
+      continue;
+    }
+    categoryWiseQuantity[sgst.toString()] =
+      (categoryWiseQuantity[sgst.toString()] || 0) + quantity;
   }
 
   // console.log('Category-wise CGST:');
@@ -86,10 +96,6 @@ function calculateGST(items) {
         total: cgst.toString(),
       },
     ];
-    // thermalPrinterProvider.bluetooth.print4Column(
-    //     "CGST", quantity.toString(), `${category}%`, cgst.toString(), 1,
-    //     { format: "%-5s %7s %8s %9s" }
-    // );
   });
 
   // console.log('\nCategory-wise SGST:');
@@ -107,12 +113,8 @@ function calculateGST(items) {
         total: sgst.toString(),
       },
     ];
-
-    // thermalPrinterProvider.bluetooth.print4Column(
-    //     "SGST", quantity.toString(), `${category}%`, sgst.toString(), 1,
-    //     { format: "%-5s %7s %8s %9s" }
-    // );
   });
+
   // console.log(gstData);
   return {gstTotal, gstData};
 }

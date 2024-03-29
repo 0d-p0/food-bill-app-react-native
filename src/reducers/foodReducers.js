@@ -104,43 +104,17 @@ const foodReducers = (state = initialState, action) => {
 
     case DIGRESS_QUANTITY:
       item = action.payload;
-      if (state.itemQuantitys[item._id.toString()] != null) {
-        if (state.itemQuantitys[item._id.toString()] == 0) {
-          const index = state.orderList.findIndex(
-            oitem => oitem._id === item._id,
-          );
-          const digressOrderList = state.orderList.slice(1, index); // Creates a new array from index 1 to index 3
-          return {
-            ...state,
-            orderList: digressOrderList,
-            ogOderList: digressOrderList,
-          };
-        }
-        state.itemQuantitys[item._id.toString()]--;
-        if (state.itemQuantitys[item._id.toString()] == 0) {
-          const index = state.orderList.findIndex(
-            oitem => oitem._id === item._id,
-          );
-          const digressOrderList = state.orderList.slice(1, index); // Creates a new array from index 1 to index 3
-          const digressTotal = {
-            totalPrice: state.total.totalPrice - item.price,
-            totalQuantity: (state.total.totalQuantity =
-              state.total.totalQuantity - 1),
-          };
-          return {
-            ...state,
-            orderList: digressOrderList,
-            total: digressTotal,
-            ogOderList: digressOrderList,
-          };
-        }
-      } else {
-        state.itemQuantitys[item._id.toString()] = 0;
-        return {
+
+      if (
+        state.itemQuantitys[item._id.toString()] == null ||
+        item.quantity <= 0
+      ) {
+         return {
           ...state,
         };
       }
 
+      state.itemQuantitys[item._id.toString()]--;
       item['quantity'] = state.itemQuantitys[item._id.toString()];
       const findex = state.orderList.findIndex(oitem => oitem._id === item._id);
       let digressOrderList = state.orderList;
@@ -153,6 +127,12 @@ const foodReducers = (state = initialState, action) => {
         totalQuantity: (state.total.totalQuantity =
           state.total.totalQuantity - 1),
       };
+
+      if (item.quantity <= 0) {
+        digressOrderList = state.orderList.filter(
+          items => items._id != item._id,
+        ); // Creates a new array from index 1 to index 3
+      }
 
       return {
         ...state,
@@ -284,7 +264,6 @@ function calculateDiscount(orderList, totalDiscountPercentage) {
     0,
   );
 
-
   var discountedItems = [];
   items.forEach(function (item) {
     var discountPercentage = (
@@ -315,8 +294,6 @@ function calculateDiscount(orderList, totalDiscountPercentage) {
 
     discountedItems.push(foodItem);
   });
-   
-  
 
   return discountedItems;
 }
